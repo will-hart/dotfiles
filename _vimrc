@@ -1,3 +1,6 @@
+" use pathogen
+execute pathogen#infect()
+
 colorscheme molokai
 
 if has("gui_running")
@@ -15,6 +18,7 @@ endif
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
+
 
 " tabs are two spaces
 set tabstop=2
