@@ -27,8 +27,36 @@ set shiftround
 set expandtab
 
 " Make it obvious where 80 characters is
+" and reformat paragraphs to fit
 set textwidth=80
 set colorcolumn=+1
+set formatoptions=t1
+
+" only reformat in insert mode
+" http://alols.github.io/2012/11/07/writing-prose-with-vim/
+augroup PROSE
+	autocmd InsertEnter * set formatoptions+=a
+	autocmd InsertLeave * set formatoptions-=a
+augroup END
+
+" use Q to force a reformat
+" http://alols.github.io/2012/11/07/writing-prose-with-vim/
+noremap Q gqip
+
+" command to revert document to soft wraps
+" http://alols.github.io/2012/11/07/writing-prose-with-vim/
+command! -range=% SoftWrap
+            \ <line2>put _ |
+            \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
+
+" command to enter to Code writing mode
+" http://alols.github.io/2012/11/07/writing-prose-with-vim/
+command! Code silent! iunmap <buffer> .|
+            \ silent! iunmap <buffer> !|
+            \ silent! iunmap <buffer> ?|
+            \ setlocal nospell list nowrap
+            \     tw=74 fo=cqr1 showbreak=… nu|
+            \ silent! autocmd! PROSE * <buffer>
 
 " Get off my lawn (thoughtbot for ignore arrow keys)
 nnoremap <Left> :echoe "Use h"<CR>
