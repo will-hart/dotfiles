@@ -1,8 +1,3 @@
-" use pathogen
-execute pathogen#infect()
-
-colorscheme molokai
-
 if has("gui_running")
   if has("gui_gtk2")
     set guifont=Hack\ 12
@@ -13,12 +8,23 @@ if has("gui_running")
   endif
 endif
 
+" use pathogen for plugins
+" https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
+
+" plugin: https://github.com/tomasr/molokai
+colorscheme molokai
+
+" plugin: https://github.com/bling/vim-airline
+set encoding=utf-8
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
-
 
 " tabs are two spaces
 set tabstop=2
@@ -31,6 +37,9 @@ set expandtab
 set textwidth=80
 set colorcolumn=+1
 set formatoptions=t1
+
+" enable GB spell check
+setlocal spell spelllang=en_gb
 
 " only reformat in insert mode
 " http://alols.github.io/2012/11/07/writing-prose-with-vim/
@@ -80,10 +89,13 @@ set whichwrap+=<,>,[,]
 set splitbelow
 set splitright
 
+" Write backups to dir and with different filename
+set backupdir=$HOME/Vim/backup//,.
+set directory=$HOME/Vim/swap//,.
+au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
+
 set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
-set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+
 set history=50
 set ruler         " show the cursor position all the time
 set incsearch     " do incremental searching
@@ -115,18 +127,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 " set foldnestmax=10    " 10 nested folds max
 " nnoremap <space> za   " space open/closes folds
 " set foldmethod=indent " fold based on indent level
-
-" move vertically by visual line
-" nnoremap j gj
-" nnoremap k gk
-
-" move to beginning/end of line
-" nnoremap B ^
-" nnoremap E $
-
-" $/^ doesn't do anything
-" nnoremap $ <nop>
-" nnoremap ^ <nop>
 
 " highlight last inserted text
 nnoremap gV `[v`]
