@@ -39,38 +39,50 @@ set softtabstop=2
 set textwidth=80
 set colorcolumn=+1
 
-set formatoptions=t1
-
-" enable GB spell check
-setlocal spell spelllang=en_gb
-
-" only reformat in insert mode
+" Handle prose and code modes. Borrowed from
 " http://alols.github.io/2012/11/07/writing-prose-with-vim/
-" TODO: want to do this for tex,markdown,text only
-augroup PROSE
-  autocmd!
-  autocmd InsertEnter * set formatoptions+=a
-  autocmd InsertLeave * set formatoptions-=a
-augroup END
+fun! SetProse()
+  augroup PROSE
+    autocmd!
+    autocmd InsertEnter * set formatoptions+=a
+    autocmd InsertLeave * set formatoptions-=a
 
-" use Q to force a reformat
-" http://alols.github.io/2012/11/07/writing-prose-with-vim/
-noremap Q gqip
+    setlocal formatoptions=t1
+    setlocal spell spelllang=en_gb
+
+    noremap Q gqip
+  augroup END
+endfun
+
+fun! SetCode()
+  augroup CODE
+    autocmd!
+    silent! iunmap <buffer> .|
+            \ silent! iunmap <buffer> !|
+            \ silent! iunmap <buffer> ?|
+            \ setlocal nospell list nowrap
+            \     tw=74 fo=cqr1 showbreak=… nu|
+            \ silent! autocmd! PROSE * <buffer>
+  augroup END
+endfun
+
+fun! SetFileMode()
+  if &ft =~ 'tex\|text\|markdown'
+    call SetProse()
+  else
+    call SetCode()
+  endif
+endfun
+
+autocmd FileType * call SetFileMode()
+command! Code call SetCode()
+command! Prose call SetProse()
 
 " command to revert document to soft wraps
 " http://alols.github.io/2012/11/07/writing-prose-with-vim/
 command! -range=% SoftWrap
             \ <line2>put _ |
             \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
-
-" command to enter to Code writing mode
-" http://alols.github.io/2012/11/07/writing-prose-with-vim/
-command! Code silent! iunmap <buffer> .|
-            \ silent! iunmap <buffer> !|
-            \ silent! iunmap <buffer> ?|
-            \ setlocal nospell list nowrap
-            \     tw=74 fo=cqr1 showbreak=… nu|
-            \ silent! autocmd! PROSE * <buffer>
 
 " Get off my lawn (thoughtbot for ignore arrow keys)
 nnoremap <Left> :echoe "Use h"<CR>
