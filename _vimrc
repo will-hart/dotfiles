@@ -20,6 +20,10 @@ set encoding=utf-8
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
+" plugin: https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_math=1
+let g:vim_markdown_frontmatter=1
+
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
@@ -27,15 +31,14 @@ if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
 endif
 
 " tabs are two spaces
-set tabstop=2
-set softtabstop=2
-set shiftround
 set expandtab
+set shiftwidth=2
+set softtabstop=2
 
 " Make it obvious where 80 characters is
-" and reformat paragraphs to fit
 set textwidth=80
 set colorcolumn=+1
+
 set formatoptions=t1
 
 " enable GB spell check
@@ -43,9 +46,11 @@ setlocal spell spelllang=en_gb
 
 " only reformat in insert mode
 " http://alols.github.io/2012/11/07/writing-prose-with-vim/
+" TODO: want to do this for tex,markdown,text only
 augroup PROSE
-	autocmd InsertEnter * set formatoptions+=a
-	autocmd InsertLeave * set formatoptions-=a
+  autocmd!
+  autocmd InsertEnter * set formatoptions+=a
+  autocmd InsertLeave * set formatoptions-=a
 augroup END
 
 " use Q to force a reformat
