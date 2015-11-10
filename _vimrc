@@ -12,6 +12,13 @@ endif
 " https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
 
+" My plugins:
+"  - Molokai
+"  - Ctrl+P
+"  - vim-airline
+"  - Goyo
+"  - Limelight
+
 " plugin: https://github.com/tomasr/molokai
 colorscheme molokai
 
@@ -83,6 +90,12 @@ command! Prose call SetProse()
 command! -range=% SoftWrap
             \ <line2>put _ |
             \ <line1>,<line2>g/.\+/ .;-/^$/ join |normal $x
+
+command! NoDistract Goyo |
+			\Limelight0.6
+
+command! Distract Goyo! |
+			\Limelight!
 
 " Get off my lawn (thoughtbot for ignore arrow keys)
 nnoremap <Left> :echoe "Use h"<CR>
