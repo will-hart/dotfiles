@@ -1,0 +1,55 @@
+# theme = "onedark"
+theme = "monokai_pro_ristretto"
+
+
+[editor]
+line-number = "relative"
+mouse = true
+auto-completion=true
+auto-save=true
+auto-format=true
+text-width=80
+gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
+soft-wrap.enable = true
+soft-wrap.max-indent-retain=80
+
+[editor.file-picker]
+hidden = false
+
+[editor.statusline]
+left = ["mode", "spinner", "file-modification-indicator", "read-only-indicator"]
+center = ["file-name"]
+right = ["diagnostics", "register", "selections", "position", "file-encoding", "file-line-ending", "file-type"]
+separator = "│"
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+enable=true
+# snippets= true
+display-inlay-hints = true
+auto-signature-help=true
+display-messages = true
+
+[editor.indent-guides]
+render = true
+character = "┊"
+skip-levels = 1
+
+# At most one section each of 'keys.normal', 'keys.insert' and 'keys.select'
+[keys.normal]
+# C-o = ":open ~/AppData/Roaming/helix/config.toml" # Maps Ctrl-o to opening of the helix config file
+a = ["append_mode", "collapse_selection"] # prevents "a" from selecting some text
+g = { a = "code_action" } # Maps `ga` to show possible code actions
+"ret" = ["open_below", "insert_mode"] # Maps the enter key to open_below then re-enter normal mode
+C-R = ":sh cargo run"
+V = ["goto_first_nonwhitespace", "extend_to_line_end"]
+D = ["ensure_selections_forward", "extend_to_line_end"]
+
+[keys.select]
+x = "extend_line"
+V = "extend_to_line_end"
+
+[keys.insert]
+C-s = [":w", "normal_mode"] # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
