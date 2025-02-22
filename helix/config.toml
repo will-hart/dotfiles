@@ -1,7 +1,6 @@
 # theme = "onedark"
 theme = "monokai_pro_ristretto"
 
-
 [editor]
 line-number = "relative"
 mouse = true
@@ -12,6 +11,7 @@ text-width=80
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 soft-wrap.enable = true
 soft-wrap.max-indent-retain=80
+smart-tab.enable = true
 
 [editor.file-picker]
 hidden = false
@@ -46,10 +46,15 @@ g = { a = "code_action" } # Maps `ga` to show possible code actions
 C-R = ":sh cargo run"
 V = ["goto_first_nonwhitespace", "extend_to_line_end"]
 D = ["ensure_selections_forward", "extend_to_line_end"]
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
 
 [keys.select]
 x = "extend_line"
 V = "extend_to_line_end"
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"
 
 [keys.insert]
 C-s = [":w", "normal_mode"] # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
+S-tab = "move_parent_node_start"
