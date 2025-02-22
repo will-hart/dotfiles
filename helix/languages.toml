@@ -1,3 +1,45 @@
+#
+# Language server configuration
+# 
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config.inlayHints]
+bindingModeHints.enable = false
+closingBraceHints.minLines = 10
+closureReturnTypeHints.enable = "with_block"
+discriminantHints.enable = "fieldless"
+lifetimeElisionHints.enable = "skip_trivial"
+typeHints.hideClosureInitialization = false
+
+[language-server.ruff]
+command = "ruff"
+args = [ "server" ]
+environment = { "RUFF_TRACE" = "messages" }
+
+[language-server.ruff.config.settings]
+logLevel = "debug"
+
+[language-server.pylsp.config.pylsp]
+plugins.pylsp_mypy.enabled = true
+plugins.pylsp_mypy.live_mode = true
+
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+[language-server.harper-ls]
+command = "harper-ls"
+args = ["--stdio"]
+
+[language-server.tinymist]
+command = "tinymist"
+
+#
+# Language configuration
+#
+
 [[language]]
 name = "todotxt"
 
@@ -17,14 +59,37 @@ roots = [
 '"' = '"'
 "`" = "`"
 
-[language-server.rust-analyzer]
-command = "rust-analyzer"
+[[language]]
+name = "python"
+language-servers = [ "ruff", "pylsp" ]
+auto-format = true
 
-[language-server.rust-analyzer.config.inlayHints]
-bindingModeHints.enable = false
-closingBraceHints.minLines = 10
-closureReturnTypeHints.enable = "with_block"
-discriminantHints.enable = "fieldless"
-lifetimeElisionHints.enable = "skip_trivial"
-typeHints.hideClosureInitialization = false
+[[language]]
+name = "javascript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
 
+[[language]]
+name = "typescript"
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+auto-format = true
+
+[[language]]
+name = "tsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "jsx"
+auto-format = true
+language-servers = [ { name = "typescript-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "json"
+language-servers = [ { name = "vscode-json-language-server", except-features = [ "format" ] }, "biome" ]
+
+[[language]]
+name = "typst"
+language-servers = ["tinymist", "harper-ls"]
+formatter = { command = "typstyle", args = ["format-all", "-i", "-c 80"]}
+auto-format = true
