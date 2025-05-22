@@ -11,10 +11,14 @@ text-width=80
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 soft-wrap.enable = true
 soft-wrap.max-indent-retain=80
+rulers = [80]
 smart-tab.enable = true
+completion-replace = true
+bufferline = "always"
+end-of-line-diagnostics = "hint"
 
-[editor.file-picker]
-hidden = false
+[editor.whitespace]
+render = "all"
 
 [editor.statusline]
 left = ["mode", "spinner", "file-modification-indicator", "read-only-indicator"]
@@ -32,6 +36,10 @@ display-inlay-hints = true
 auto-signature-help=true
 display-messages = true
 
+[editor.inline-diagnostics]
+cursor-line = "info"
+other-lines = "warning"
+
 [editor.indent-guides]
 render = true
 character = "┊"
@@ -48,6 +56,10 @@ V = ["goto_first_nonwhitespace", "extend_to_line_end"]
 D = ["ensure_selections_forward", "extend_to_line_end"]
 tab = "move_parent_node_end"
 S-tab = "move_parent_node_start"
+A-S-d = "diagnostics_picker"
+A-S-w = "workspace_diagnostics_picker"
+space.d = "@<A-S-d>%s !H"
+space.D = "@<A-S-w>%s !H"
 
 [keys.select]
 x = "extend_line"
@@ -56,5 +68,5 @@ tab = "extend_parent_node_end"
 S-tab = "extend_parent_node_start"
 
 [keys.insert]
-C-s = [":w", "normal_mode"] # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
+C-s = [":w", "insert_mode"] # Maps Ctrl-s to the typable command :w which is an alias for :write (save file)
 S-tab = "move_parent_node_start"
