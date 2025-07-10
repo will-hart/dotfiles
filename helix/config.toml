@@ -13,12 +13,17 @@ soft-wrap.enable = true
 soft-wrap.max-indent-retain=80
 rulers = [80]
 smart-tab.enable = true
-completion-replace = true
+# completion-replace = true # I'd prefer this but it seems to be buggy and 'over replaces'
 bufferline = "always"
 end-of-line-diagnostics = "hint"
 
-[editor.whitespace]
-render = "all"
+[editor.whitespace.render]
+space = "all"
+tab = "all"
+
+[editor.whitespace.characters]
+space = "·"
+tab = "→"
 
 [editor.statusline]
 left = ["mode", "spinner", "file-modification-indicator", "read-only-indicator"]
